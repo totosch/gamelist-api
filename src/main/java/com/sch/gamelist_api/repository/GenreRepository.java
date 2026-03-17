@@ -1,0 +1,7 @@
+package com.sch.gamelist_api.repository;
+
+import com.sch.gamelist_api.model.Genre;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface GenreRepository extends JpaRepository<Genre, Long> {
+}
