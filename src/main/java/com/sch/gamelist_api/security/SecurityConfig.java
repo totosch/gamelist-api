@@ -29,10 +29,16 @@ public class SecurityConfig {
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/games/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/genres/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/platforms/**").permitAll()
-                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/games/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/games/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/genres/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/genres/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/platforms/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/platforms/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthenticationFilter,
