@@ -9,6 +9,8 @@ import com.sch.gamelist_api.model.Platform;
 import com.sch.gamelist_api.repository.GameRepository;
 import com.sch.gamelist_api.repository.GenreRepository;
 import com.sch.gamelist_api.repository.PlatformRepository;
+import com.sch.gamelist_api.specification.GameSpecification;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -69,10 +71,15 @@ public class GameService {
         return response;
     }
 
-    public List<GameResponse> findAll() {
-        List<Game> games = gameRepository.findAll();
+    public List<GameResponse> findAll(String title, Long genreId, Long platformId) {
+        Specification<Game> spec = Specification
+                .where(GameSpecification.titleContains(title))
+                .and(GameSpecification.hasGenre(genreId))
+                .and(GameSpecification.hasPlatform(platformId));
+
+        List<Game> games = gameRepository.findAll(spec);
         List<GameResponse> responses = new ArrayList<>();
-        for (Game game: games) {
+        for (Game game : games) {
             responses.add(toResponse(game));
         }
         return responses;

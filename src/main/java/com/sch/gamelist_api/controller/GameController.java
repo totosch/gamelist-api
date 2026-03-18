@@ -22,8 +22,11 @@ public class GameController {
     }
 
     @GetMapping
-    public ResponseEntity<List<GameResponse>> findAll() {
-        List<GameResponse> games = gameService.findAll();
+    public ResponseEntity<List<GameResponse>> findAll(
+            @RequestParam(required = false) String title,
+            @RequestParam(required = false) Long genreId,
+            @RequestParam(required = false) Long platformId) {
+        List<GameResponse> games = gameService.findAll(title, genreId, platformId);
         return ResponseEntity.ok(games);
     }
 
