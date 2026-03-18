@@ -4,6 +4,7 @@ import com.sch.gamelist_api.dto.GameRequest;
 import com.sch.gamelist_api.dto.GameResponse;
 import com.sch.gamelist_api.model.Game;
 import com.sch.gamelist_api.service.GameService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,12 +37,14 @@ public class GameController {
         return ResponseEntity.ok(game);
     }
 
+    @SecurityRequirement(name = "bearerAuth")
     @PostMapping
     public ResponseEntity<GameResponse> save(@Valid @RequestBody GameRequest game) {
         GameResponse savedGame = gameService.save(game);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedGame);
     }
 
+    @SecurityRequirement(name = "bearerAuth")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable Long id) {
         gameService.deleteById(id);

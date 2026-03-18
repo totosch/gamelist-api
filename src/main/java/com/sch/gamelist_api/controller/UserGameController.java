@@ -3,6 +3,7 @@ package com.sch.gamelist_api.controller;
 import com.sch.gamelist_api.dto.UserGameRequest;
 import com.sch.gamelist_api.dto.UserGameResponse;
 import com.sch.gamelist_api.service.UserGameService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/user/games")
+@SecurityRequirement(name = "bearerAuth")
 public class UserGameController {
 
     private final UserGameService userGameService;
