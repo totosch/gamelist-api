@@ -44,6 +44,9 @@ public class GenreService {
     }
 
     public void deleteById(Long id) {
+        genreRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Genre not found with id: " + id)
+        );
         genreRepository.deleteById(id);
     }
 
@@ -53,4 +56,5 @@ public class GenreService {
         response.setName(genre.getName());
         return response;
     }
+
 }

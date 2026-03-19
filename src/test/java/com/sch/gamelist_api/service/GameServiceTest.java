@@ -72,7 +72,7 @@ public class GameServiceTest {
 
         gameService.deleteById(1L);
 
-        verify(gameRepository).deleteById(1L); // Verificamos que se llame al borrado
+        verify(gameRepository).deleteById(1L);
     }
 
     @Test

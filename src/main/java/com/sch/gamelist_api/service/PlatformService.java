@@ -44,6 +44,9 @@ public class PlatformService {
     }
 
     public void deleteById(Long id) {
+        platformRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Platform not found with id: " + id)
+        );
         platformRepository.deleteById(id);
     }
 
